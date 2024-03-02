@@ -39,8 +39,7 @@ def load_data(path: Path) -> pd.DataFrame:
     path = Path(path)
     assert path.is_file, f"File not found {path}"
 
-    df = pd.read_json(path)
-    return df
+    return pd.read_json(path)
 
 
 def analysis_data(df: pd.DataFrame, figpath: Path = None):
@@ -51,7 +50,7 @@ def analysis_data(df: pd.DataFrame, figpath: Path = None):
     print(cols.first())
 
     p1 = cols.get_group("p1")[["x", "y"]]
-    p2 = cols.get_group("p2")[["x", "y"]]
+    p2 = cols.get_group("p2")[["x", "y", "z"]]
     p3 = cols.get_group("p3")[["x", "y"]]
 
     src = np.concatenate([p1.to_numpy(), p3.to_numpy()], axis=1)
@@ -104,8 +103,9 @@ def analysis_data(df: pd.DataFrame, figpath: Path = None):
 # %% ---- 2024-02-29 ------------------------
 # Play ground
 if __name__ == "__main__":
-    df = load_data(Path("data/data1.json"))
-    analysis_data(df, "data/data1.jpg")
+    data_name = "data2"
+    df = load_data(Path(f"data/{data_name}.json"))
+    analysis_data(df, Path(f"data/{data_name}.jpg"))
     # analysis_data(df)
 
 
